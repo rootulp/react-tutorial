@@ -43,21 +43,23 @@ function Board(props) {
 
 function Status(props) {
   const winner = calculateWinner(props.squares);
-  let status;
-  if (winner) {
-    status = 'Winner: ' + winner;
-  } else {
-    status = 'Next player: ' + (props.xIsNext ? 'X' : 'O');
-  }
+  const status = winner ?
+    'Winner: ' + winner :
+    'Next player: ' + (props.xIsNext ? 'X' : 'O')
+
   return (
     <div>{status}</div>
   )
 }
 
 function MoveDescription(props) {
+  const description = props.move ?
+    'Move ' + moveLocation(props.squareNum) :
+    'Game start'
+
   return (
-    <li key={props.move}>
-      <a href="#" onClick={() => props.jumpTo(props.move)}>{props.description}</a>;
+    <li>
+      <a href="#" onClick={() => props.jumpTo(props.move)}>{description}</a>
     </li>
   )
 }
@@ -67,7 +69,7 @@ function BoldMoveDescription(props) {
     <b>
       <MoveDescription
         move={props.move}
-        description={props.description}
+        squareNum={props.squareNum}
         jumpTo={props.jumpTo}
       />
    </b>
@@ -76,26 +78,27 @@ function BoldMoveDescription(props) {
 
 function Moves(props) {
   const moves = props.history.map((step, move) => {
-    const description = move ?
-      'Move ' + moveLocation(step.squareNum) :
-      'Game start';
     if (move === props.currentStep) {
       return (
         <BoldMoveDescription
+          key={move}
           move={move}
-          description={description}
+          squareNum={step.squareNum}
+          jumpTo={props.jumpTo}
+        />
+      );
+    } else {
+      return (
+        <MoveDescription
+          key={move}
+          move={move}
+          squareNum={step.squareNum}
           jumpTo={props.jumpTo}
         />
       );
     }
-    return (
-      <MoveDescription
-        move={move}
-        description={description}
-        jumpTo={props.jumpTo}
-      />
-    );
   });
+
   return (
     <ol>{moves}</ol>
   )
@@ -105,7 +108,7 @@ function GameInfo(props) {
   return (
     <div className="game-info">
       <Status squares={props.squares} xIsNext={props.xIsNext} />
-      <Moves history={props.history} jumpTo={props.jumpTo} />
+      <Moves history={props.history} jumpTo={props.jumpTo} currentStep={props.currentStep}/>
     </div>
   );
 }
@@ -136,7 +139,7 @@ class Game extends React.Component {
         <GameInfo
           history={history}
           squares={current.squares}
-          currentStep={this.state.currentStep}
+          currentStep={this.state.stepNumber}
           xIsNext={this.state.xIsNext}
           jumpTo={(move) => this.jumpTo(move)}
         />
