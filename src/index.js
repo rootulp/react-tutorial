@@ -11,12 +11,14 @@ function Square(props) {
 }
 
 function Row(props) {
-  const squareNum = props.row * 3;
+  const squareIndex = props.row * 3;
+  const squares = [squareIndex, squareIndex + 1, squareIndex + 2].map((index) =>
+    <Square key={index} value={props.squares[index]} onClick={() => props.onClick(index)} />
+  );
+
   return (
     <div className="board-row">
-      <Square value={props.squares[squareNum]} onClick={() => props.onClick(squareNum)} />
-      <Square value={props.squares[squareNum + 1]} onClick={() => props.onClick(squareNum + 1)} />
-      <Square value={props.squares[squareNum + 2]} onClick={() => props.onClick(squareNum + 2)} />
+      {squares}
     </div>
   )
 }
