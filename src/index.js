@@ -11,11 +11,12 @@ function Square(props) {
 }
 
 function Row(props) {
+  const squareNum = props.rowNum * 3;
   return (
     <div className="board-row">
-      <Square value={props.squares[props.rowNum * 3]} onClick={() => props.onClick(props.rowNum * 3)} />
-      <Square value={props.squares[props.rowNum * 3 + 1]} onClick={() => props.onClick(props.rowNum * 3 + 1)} />
-      <Square value={props.squares[props.rowNum * 3 + 2]} onClick={() => props.onClick(props.rowNum * 3 + 2)} />
+      <Square value={props.squares[squareNum]} onClick={() => props.onClick(squareNum)} />
+      <Square value={props.squares[squareNum + 1]} onClick={() => props.onClick(squareNum + 1)} />
+      <Square value={props.squares[squareNum + 2]} onClick={() => props.onClick(squareNum + 2)} />
     </div>
   )
 }
