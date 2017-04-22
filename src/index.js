@@ -10,34 +10,24 @@ function Square(props) {
   );
 }
 
-class Board extends React.Component {
-  renderSquare(i) {
-    return <Square value={this.props.squares[i]} onClick={() => this.props.onClick(i)} />;
-  }
-  row(rowNum) {
-    const squares = [];
-    const firstSquare = rowNum * 3;
-    const lastSquare = (rowNum + 1) * 3;
-    for (var i = firstSquare; i < lastSquare; i++) {
-      squares.push(this.renderSquare(i))
-    }
-    return (
-      <div className="board-row">
-        {squares}
-      </div>
-    )
-  }
-  render() {
-    const rows = [];
-    for (var i = 0; i < 3; i++) {
-      rows.push(this.row(i))
-    }
-    return (
-      <div>
-        {rows}
-      </div>
-    );
-  }
+function Row(props) {
+  return (
+    <div className="board-row">
+      <Square value={props.squares[props.rowNum * 3]} onClick={() => props.onClick(props.rowNum * 3)} />
+      <Square value={props.squares[props.rowNum * 3 + 1]} onClick={() => props.onClick(props.rowNum * 3 + 1)} />
+      <Square value={props.squares[props.rowNum * 3 + 2]} onClick={() => props.onClick(props.rowNum * 3 + 2)} />
+    </div>
+  )
+}
+
+function Board(props) {
+  return (
+    <div>
+      <Row squares={props.squares} onClick={props.onClick} rowNum={0} />
+      <Row squares={props.squares} onClick={props.onClick} rowNum={1} />
+      <Row squares={props.squares} onClick={props.onClick} rowNum={2} />
+    </div>
+  );
 }
 
 class Game extends React.Component {
