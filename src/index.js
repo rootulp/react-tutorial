@@ -11,8 +11,8 @@ function Square(props) {
 }
 
 function Row(props) {
-  const squareIndex = props.row * 3;
-  const squares = [squareIndex, squareIndex + 1, squareIndex + 2].map((index) =>
+  const squareIndex = props.row * props.NUMBER_OF_COLS;
+  const squares = range(squareIndex, squareIndex + props.NUMBER_OF_COLS).map((index) =>
     <Square key={index} value={props.squares[index]} onClick={() => props.onClick(index)} />
   );
 
@@ -24,8 +24,15 @@ function Row(props) {
 }
 
 function Board(props) {
-  const rows = [0, 1, 2].map((index) =>
-    <Row key={index} row={index} squares={props.squares} onClick={props.onClick} />
+  const NUMBER_OF_ROWS = 3;
+  const NUMBER_OF_COLS = 3;
+  const rows = range(0, NUMBER_OF_ROWS).map((index) =>
+    <Row key={index}
+         row={index}
+         squares={props.squares}
+         onClick={props.onClick}
+         NUMBER_OF_COLS={NUMBER_OF_COLS}
+    />
   );
   return (
     <div>
@@ -152,4 +159,8 @@ function row(squareNum) {
 
 function col(squareNum) {
   return squareNum % 3
+}
+
+function range(start, end) {
+  return Array.from({length: (end - start)}, (v, k) => k + start);
 }
