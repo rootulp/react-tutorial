@@ -58,7 +58,7 @@ class Game extends React.Component {
     const winner = calculateWinner(current.squares);
     const moves = history.map((step, move) => {
       const desc = move ?
-        'Move ' + moveLocation(step.squareNum) :
+        'Move ' + this.moveLocation(step.squareNum) :
         'Game start';
       if (move === this.state.stepNumber) {
         return (
@@ -120,6 +120,17 @@ class Game extends React.Component {
       xIsNext: (step % 2) ? false : true,
     });
   }
+  moveLocation(squareNum) {
+    return "(" + this.row(squareNum) + ", " + this.col(squareNum) + ")"
+  }
+
+  row(squareNum) {
+    return Math.floor(squareNum / 3)
+  }
+
+  col(squareNum) {
+    return squareNum % 3
+  }
 }
 
 // ========================================
@@ -149,17 +160,7 @@ function calculateWinner(squares) {
   return null;
 }
 
-function moveLocation(squareNum) {
-  return "(" + row(squareNum) + ", " + col(squareNum) + ")"
-}
 
-function row(squareNum) {
-  return Math.floor(squareNum / 3)
-}
-
-function col(squareNum) {
-  return squareNum % 3
-}
 
 function range(start, end) {
   return Array.from({length: (end - start)}, (v, k) => k + start);
