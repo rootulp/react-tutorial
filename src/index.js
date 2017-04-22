@@ -11,7 +11,7 @@ function Square(props) {
 }
 
 function Row(props) {
-  const squareNum = props.rowNum * 3;
+  const squareNum = props.row * 3;
   return (
     <div className="board-row">
       <Square value={props.squares[squareNum]} onClick={() => props.onClick(squareNum)} />
@@ -22,11 +22,12 @@ function Row(props) {
 }
 
 function Board(props) {
+  const rows = [0, 1, 2].map((index) =>
+    <Row key={index} row={index} squares={props.squares} onClick={props.onClick} />
+  );
   return (
     <div>
-      <Row squares={props.squares} onClick={props.onClick} rowNum={0} />
-      <Row squares={props.squares} onClick={props.onClick} rowNum={1} />
-      <Row squares={props.squares} onClick={props.onClick} rowNum={2} />
+      {rows}
     </div>
   );
 }
