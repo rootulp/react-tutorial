@@ -54,6 +54,26 @@ function Status(props) {
   )
 }
 
+function MoveDescription(props) {
+  return (
+    <li key={props.move}>
+      <a href="#" onClick={() => props.jumpTo(props.move)}>{props.description}</a>;
+    </li>
+  )
+}
+
+function BoldMoveDescription(props) {
+  return (
+    <b>
+      <MoveDescription
+        move={props.move}
+        description={props.description}
+        jumpTo={props.jumpTo}
+      />
+   </b>
+  )
+}
+
 function Moves(props) {
   const moves = props.history.map((step, move) => {
     const description = move ?
@@ -61,17 +81,20 @@ function Moves(props) {
       'Game start';
     if (move === props.currentStep) {
       return (
-        <li key={move}>
-          <b><a href="#" onClick={() => props.jumpTo(move)}>{description}</a></b>
-        </li>
-      );
-    } else {
-      return (
-        <li key={move}>
-          <a href="#" onClick={() => props.jumpTo(move)}>{description}</a>
-        </li>
+        <BoldMoveDescription
+          move={move}
+          description={description}
+          jumpTo={props.jumpTo}
+        />
       );
     }
+    return (
+      <MoveDescription
+        move={move}
+        description={description}
+        jumpTo={props.jumpTo}
+      />
+    );
   });
   return (
     <ol>{moves}</ol>
