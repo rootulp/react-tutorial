@@ -67,9 +67,21 @@ class Moves extends React.Component {
     this.setState({sortAscending: !this.state.sortAscending});
   }
 
-  render() {
-    let moves = this.props.history.map((step, move) => {
-      if (move === this.props.currentStep) {
+  ascendingOrDescending() {
+    return this.state.sortAscending ? "Ascending" : "Descending"
+  }
+
+  currentMove(move) {
+    return move === this.props.currentStep
+  }
+  
+  sortedMoves() {
+    return this.state.sortAscending ? this.moves() : this.moves().reverse()
+  }
+
+  moves() {
+    return this.props.history.map((step, move) => {
+      if (this.currentMove(move)) {
         return (
           <BoldMoveDescription
             key={move}
@@ -89,11 +101,13 @@ class Moves extends React.Component {
         );
       }
     });
-    if (!this.state.sortAscending) {moves.reverse()}
+  }
+  
+  render() {
     return (
       <div>
-        <button onClick={() => this.toggleSort()}>Toggle Sort</button>
-        <ol>{moves}</ol>
+        <button onClick={() => this.toggleSort()}>Sort {this.ascendingOrDescending()}</button>
+        <ol>{this.sortedMoves()}</ol>
       </div>
     );
   }
