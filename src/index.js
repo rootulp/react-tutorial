@@ -2,23 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import './index.css';
-
-function Square(props) {
-  return (
-    <button className="square" onClick={() => props.onClick()}>
-      {props.value}
-    </button>
-  );
-}
-
-Square.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  value: PropTypes.string,
-};
-
-Square.defaultProps = {
-  value: ' ',
-};
+import Square from './Square';
 
 function Row(props) {
   const squareIndex = props.row * props.NUMBER_OF_COLS;
