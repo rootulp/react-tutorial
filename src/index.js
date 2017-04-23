@@ -1,21 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
+import Row from './Row';
 import './index.css';
-import Square from './Square';
-
-function Row(props) {
-  const squareIndex = props.row * props.NUMBER_OF_COLS;
-  const squares = range(squareIndex, squareIndex + props.NUMBER_OF_COLS).map(index =>
-    <Square key={index} value={props.squares[index]} onClick={() => props.onClick(index)} />,
-  );
-
-  return (
-    <div className="board-row">
-      {squares}
-    </div>
-  );
-}
 
 function Board(props) {
   const NUMBER_OF_ROWS = 3;
