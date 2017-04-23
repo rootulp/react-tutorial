@@ -57,31 +57,46 @@ function BoldMoveDescription(props) {
   );
 }
 
-function Moves(props) {
-  const moves = props.history.map((step, move) => {
-    if (move === props.currentStep) {
-      return (
-        <BoldMoveDescription
-          key={move}
-          move={move}
-          squareNum={step.squareNum}
-          jumpTo={props.jumpTo}
-        />
-      );
-    }
-    return (
-      <MoveDescription
-        key={move}
-        move={move}
-        squareNum={step.squareNum}
-        jumpTo={props.jumpTo}
-      />
-    );
-  });
+class Moves extends React.Component {
+  constructor() {
+    super();
+    this.state = {sortAscending: true};
+  }
 
-  return (
-    <ol>{moves}</ol>
-  );
+  toggleSort() {
+    this.setState({sortAscending: !this.state.sortAscending});
+  }
+
+  render() {
+    let moves = this.props.history.map((step, move) => {
+      if (move === this.props.currentStep) {
+        return (
+          <BoldMoveDescription
+            key={move}
+            move={move}
+            squareNum={step.squareNum}
+            jumpTo={this.props.jumpTo}
+          />
+        );
+      } else {
+        return (
+          <MoveDescription
+            key={move}
+            move={move}
+            squareNum={step.squareNum}
+            jumpTo={this.props.jumpTo}
+          />
+        );
+      }
+    });
+    if (!this.state.sortAscending) {moves.reverse()}
+    return (
+      <div>
+        <button onClick={() => this.toggleSort()}>Toggle Sort</button>
+        <ol>{moves}</ol>
+      </div>
+    );
+  }
 }
 
 function GameInfo(props) {
