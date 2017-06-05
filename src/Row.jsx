@@ -18,12 +18,11 @@ function Row(props) {
 Row.propTypes = {
   row: PropTypes.number.isRequired,
   NUMBER_OF_COLS: PropTypes.number.isRequired,
-  squares: PropTypes.array,
+  squares: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 Row.defaultProps = {
   value: ' ',
-  squares: [],
 };
 
 function range(start, end) {

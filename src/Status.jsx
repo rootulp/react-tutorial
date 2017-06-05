@@ -32,4 +32,9 @@ function calculateWinner(squares) {
   return null;
 }
 
+Status.propTypes = {
+  xIsNext: PropTypes.bool.isRequired,
+  squares: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
 export default Status;

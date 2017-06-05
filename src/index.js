@@ -2,32 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Board from './Board';
 import Status from './Status';
+import MoveDescription from './MoveDescription';
+import BoldMoveDescription from './BoldMoveDescription';
 import './index.css';
-
-
-function MoveDescription(props) {
-  const description = props.move ?
-    `Move ${moveLocation(props.squareNum)}` :
-    'Game start';
-
-  return (
-    <li>
-      <a href="#" onClick={() => props.jumpTo(props.move)}>{description}</a>
-    </li>
-  );
-}
-
-function BoldMoveDescription(props) {
-  return (
-    <b>
-      <MoveDescription
-        move={props.move}
-        squareNum={props.squareNum}
-        jumpTo={props.jumpTo}
-      />
-    </b>
-  );
-}
 
 class Moves extends React.Component {
   constructor() {
@@ -180,16 +157,4 @@ function calculateWinner(squares) {
     }
   }
   return null;
-}
-
-function moveLocation(squareNum) {
-  return `(${row(squareNum)}, ${col(squareNum)})`;
-}
-
-function row(squareNum) {
-  return Math.floor(squareNum / 3);
-}
-
-function col(squareNum) {
-  return squareNum % 3;
 }
