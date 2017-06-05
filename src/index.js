@@ -1,26 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Board from './Board';
 import Row from './Row';
 import './index.css';
-
-function Board(props) {
-  const NUMBER_OF_ROWS = 3;
-  const NUMBER_OF_COLS = 3;
-  const rows = range(0, NUMBER_OF_ROWS).map(index =>
-    <Row
-      key={index}
-      row={index}
-      squares={props.squares}
-      onClick={props.onClick}
-      NUMBER_OF_COLS={NUMBER_OF_COLS}
-    />,
-  );
-  return (
-    <div>
-      {rows}
-    </div>
-  );
-}
 
 function Status(props) {
   const winner = calculateWinner(props.squares);
@@ -60,23 +42,23 @@ function BoldMoveDescription(props) {
 class Moves extends React.Component {
   constructor() {
     super();
-    this.state = {sortAscending: true};
+    this.state = { sortAscending: true };
   }
 
   toggleSort() {
-    this.setState({sortAscending: !this.state.sortAscending});
+    this.setState({ sortAscending: !this.state.sortAscending });
   }
 
   ascendingOrDescending() {
-    return this.state.sortAscending ? "Ascending" : "Descending"
+    return this.state.sortAscending ? 'Ascending' : 'Descending';
   }
 
   currentMove(move) {
-    return move === this.props.currentStep
+    return move === this.props.currentStep;
   }
-  
+
   sortedMoves() {
-    return this.state.sortAscending ? this.moves() : this.moves().reverse()
+    return this.state.sortAscending ? this.moves() : this.moves().reverse();
   }
 
   moves() {
@@ -90,19 +72,18 @@ class Moves extends React.Component {
             jumpTo={this.props.jumpTo}
           />
         );
-      } else {
-        return (
-          <MoveDescription
-            key={move}
-            move={move}
-            squareNum={step.squareNum}
-            jumpTo={this.props.jumpTo}
-          />
-        );
       }
+      return (
+        <MoveDescription
+          key={move}
+          move={move}
+          squareNum={step.squareNum}
+          jumpTo={this.props.jumpTo}
+        />
+      );
     });
   }
-  
+
   render() {
     return (
       <div>
@@ -209,10 +190,6 @@ function calculateWinner(squares) {
     }
   }
   return null;
-}
-
-function range(start, end) {
-  return Array.from({ length: (end - start) }, (v, k) => k + start);
 }
 
 function moveLocation(squareNum) {
