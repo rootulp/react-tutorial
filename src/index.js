@@ -1,19 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Board from './Board';
-import Status from './Status';
-import Moves from './Moves';
+import GameInfo from './GameInfo';
 import './index.css';
-
-
-function GameInfo(props) {
-  return (
-    <div className="game-info">
-      <Status squares={props.squares} xIsNext={props.xIsNext} />
-      <Moves history={props.history} jumpTo={props.jumpTo} currentStep={props.currentStep} />
-    </div>
-  );
-}
 
 class Game extends React.Component {
   constructor() {
