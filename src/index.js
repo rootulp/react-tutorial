@@ -1,19 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Board from './Board';
-import Row from './Row';
+import Status from './Status';
 import './index.css';
 
-function Status(props) {
-  const winner = calculateWinner(props.squares);
-  const status = winner ?
-    `Winner: ${winner}` :
-    `Next player: ${props.xIsNext ? 'X' : 'O'}`;
-
-  return (
-    <div>{status}</div>
-  );
-}
 
 function MoveDescription(props) {
   const description = props.move ?
